@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+
+<html>
+
+    
+    <head>
+        
+        <title>jQuery</title>
+    
+        <script type="text/javascript" src="jquery.min.js"></script>
+          
+        <style type="text/css">
+            
+            body{
+                font-family: helvetica,sans-serif;
+                font-size: 150%;
+                color: darkturquoise;
+            }
+            
+            input{
+                height: 40px;
+                width: 250px;
+                padding-left: 10px;
+                font-size: 20px;
+                border-radius: 5px;
+                border: 1px solid darkgrey;
+            }
+            
+            label{
+                position: relative;
+                top: 8px;
+                float: left;
+                width: 230px;
+            }
+            
+            #wrapper{
+                width: 600px;
+                margin: 0 auto;
+            }
+            
+            .form-element{
+                margin: 10px;
+            }
+            
+            #sbt{
+                background-color: lightseagreen;
+                color: black;
+                width: 130px;
+                margin: 30px 0px 0px 150px;
+            }
+            
+            #sbt:hover{
+                background-color: darkturquoise;
+                color: white;
+            }
+            
+            #errormsg{
+                color: red;
+            }
+            
+            #successmsg{
+                color: limegreen;
+                font-size: 100%;
+                display: none;
+            }
+            
+        </style>
+        
+    </head>
+
+    <body>
+        
+        <div id="wrapper">
+            
+            <div id="errormsg"></div>
+            <div id="successmsg">Successfull Sign Up!</div>
+
+            
+            <div class="form-element">
+                <label for="email">Email</label>
+                <input type="text" name="email" id="email" placeholder="eg. youremail@gmail.com">
+            </div>
+            
+            <div class="form-element">
+                <label for="phone">Telephone</label>
+                <input type="text" name="phone" id="phone" placeholder="eg. 0123456789">
+            </div>
+            
+            <div class="form-element">
+                <label for="password">Password</label>
+                <input type="password" name="password" id="password">
+            </div>
+            
+            <div class="form-element">
+                <label for="passwordconfirm">Confirm Password</label>
+                <input type="password" name="passwordconfirm" id="passwordconfirm">
+            </div>
+            
+            <div class="form-element">
+                <input type="submit" id="sbt" value="Sign Up">
+            </div>
+            
+        </div>
+        
+        <script type="text/javascript">
+            
+            function isEmail(email) {
+                var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+                return regex.test(email);
+            }
+            
+            $("#sbt").click(function(){
+                
+                var errorMsg = "";
+                var filedMiss = "";
+                
+                if($("#email").val() == ""){
+                    filedMiss+= "<br>Email";
+                }
+                
+                if($("#phone").val() == ""){
+                    filedMiss+= "<br>Phone";
+                }
+                
+                if($("#password").val() == ""){
+                    filedMiss+= "<br>Password";
+                }
+                
+                if($("#passwordconfirm").val() == ""){
+                    filedMiss+= "<br>Confirm Password";
+                }
+                
+                if(filedMiss != ""){
+                    errorMsg+= "The Following Fields Are Missing : " + filedMiss;
+                }
+                
+                if(isEmail($("#email").val()) == false){
+                    errorMsg += "<p>Your email address is not valid</p>";
+                } 
+                
+                if($.isNumeric($("#phone").val())== false){
+                    errorMsg+= "<p>Your phone number is not valid</p>";
+                }
+                
+                if($("#password").val() != $("#passwordconfirm").val()){
+                    errorMsg+= "<p>Your Passwords don't match</p>";
+                }
+                
+                if(errorMsg != ""){
+                    $("#errormsg").html(errorMsg);
+                    $("#successmsg").hide();
+                }
+                else{
+                    $("#successmsg").show();
+                    $("#errormsg").hide();
+                }
+                
+            }); 
+            
+            
+           
+        </script>
+        
+    </body>
+    
+    
+</html>
